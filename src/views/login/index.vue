@@ -43,8 +43,8 @@ export default {
   data () {
     return {
       user: {
-        mobile: '',
-        code: '',
+        mobile: '15150498462',
+        code: '123456',
         isAgree: false // 是否同意协议
       },
       loginLoading: false, // 登录的loading状态
@@ -53,28 +53,29 @@ export default {
           // trigger为什么时候触发，blur失去焦点触发，change input内容改变时触发
           // pattern为正则验证
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { pattern: /^1[3|5|7|8|9]\d(9)$/, message: '请输入正确的手机号', trigger: 'change' }
+          { pattern: /^1[3|5|7|8|9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
         ],
         code: [
           { required: true, message: '验证码不能为空', trigger: 'blur' },
           { min: 4, max: 6, message: '验证码不符合规则', trigger: 'blur' },
-          { pattern: /^\d{6$}/, message: '请输入正确的验证码', trigger: 'change' }
-        ],
-        agree: [
-          {
-            // 自定义校验规则，验证通过：callback(),验证失败：callback(new Error('错误信息'))
-            // rule为验证规则，value为布尔值
-            validator: (rule, value, callback) => {
-              // console.log(rule，value)
-              if (value) {
-                callback()
-              } else {
-                callback(new Error('请同意用户协议'))
-              }
-            },
-            trigger: 'change'
-          }
+          { pattern: /^\d{6}$/, message: '请输入正确的验证码', trigger: 'blur' }
         ]
+        // agree: [
+        //   {
+        //     // 自定义校验规则，验证通过：callback(),验证失败：callback(new Error('错误信息'))
+        //     // rule为验证规则，value为布尔值
+        //     validator: (rule, value, callback) => {
+        //       // console.log(rule)
+        //       // console.log(value)
+        //       if (value) {
+        //         callback()
+        //       } else {
+        //         callback(new Error('请同意用户协议'))
+        //       }
+        //     },
+        //     trigger: 'blur'
+        //   }
+        // ]
       }
     }
   },
@@ -105,6 +106,15 @@ export default {
       //       type: 'success'
       //     })
       //     this.loginLoading = false
+      //
+      //     // 将接口返回的用户相关数据放到本地存储
+      //     // 本地存储只能存储字符串
+      //     // 如果需要存储对象，数组类型的数据，则把他们转为JSON格式字符串
+      //     window.localStorage.setItem('user', JSON.stringify(res.data.data))
+      //     this.$router.push('/')
+      //     this.$router.push({
+      //       name: 'home'
+      //     })
       //   }
       // }).catch(err => {
       //   console.log('登录失败', err)
@@ -115,6 +125,9 @@ export default {
         this.$message({
           message: '登录成功',
           type: 'success'
+        })
+        this.$router.push({
+          name: 'home'
         })
       } else {
         this.$message.error('用户名或验证码错误')

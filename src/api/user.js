@@ -11,6 +11,11 @@ export const login = data => {
   })
 }
 // 获取用户信息
-export const getUserInfo = () => {}
+export const getUserProfile = (data) => {
+  return request({
+    url: '/mp/v1_0/user/profile',
+    method: 'GET'
+  })
+}
 // 修改用户信息
 export const updateUser = () => {}
