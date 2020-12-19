@@ -50,6 +50,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.el-menu-vertical-demo{
+  padding: 0 40px 0 15px;
+}
 </style>
