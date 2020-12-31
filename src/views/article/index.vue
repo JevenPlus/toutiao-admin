@@ -46,7 +46,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button :disabled="loading" type="primary" @click="getData(1)">筛选</el-button>
+          <el-button type="primary" @click="getData(1)">筛选</el-button>
         </el-form-item>
       </el-form>
       <!--数据筛选表单结束-->
@@ -141,7 +141,7 @@ export default {
         { id: 7, name: '后端' },
         { id: 8, name: '前端' },
         { id: 9, name: '运营' }
-      ],
+      ], // 频道列表
       status: null,
       tableData: [
         {
@@ -187,7 +187,7 @@ export default {
       ],
       totalCount: 565,
       current: 1,
-      pageSize: 20 // 每页显示数据的条数
+      pageSize: 10 // 每页显示数据的条数
     }
   },
   created () {
@@ -198,15 +198,8 @@ export default {
     getData (page = 1) {
       // 在刚开始请求的时候，页面显示为加载中
       this.loading = true
-      getArticles({
-        page,
-        per_page: this.per_page,
-        status: this.form.resource,
-        channel_id: this.form.region,
-        channel_date: this.form.date1,
-        begin_pubdate: this.form.date1[0] ? 'this.form.date1[0]' : 'null',
-        end_pubdate: this.form.date1[1] ? 'this.form.date1[1]' : 'null'
-      }).then(res => {
+      getArticles().then(res => {
+        console.log(res)
         if (res.status === 200) {
           // total_count: totalCount 因为语法不支持total_count下划线的写法，要用小驼峰的命名方法，可以利用这种方式为他重命名
           const { results, total_count: totalCount } = res.data.data
@@ -222,7 +215,7 @@ export default {
     getArticleChannels () {
       getArticleChannels().then(res => {
         // console.log(res)
-        if (res.code === 200) {
+        if (res.status === 200) {
           this.channelList = res.data.data.channels
         }
       })

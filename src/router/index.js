@@ -4,6 +4,10 @@ import Login from '@/views/login/index'
 import Home from '@/views/Home/index'
 import Layout from '@/views/Layout/index'
 import Article from '@/views/article/index'
+import Publish from '@/views/publish/index'
+import Image from '@/views/images/index'
+import Comment from '@/views/comment/index'
+import Setting from '@/views/setting/index'
 
 Vue.use(VueRouter)
 
@@ -30,6 +34,26 @@ const routes = [
         path: '/article',
         name: 'article',
         component: Article
+      },
+      {
+        path: '/publish',
+        name: 'publish',
+        component: Publish
+      },
+      {
+        path: '/image',
+        name: 'image',
+        component: Image
+      },
+      {
+        path: '/comment',
+        name: 'comment',
+        component: Comment
+      },
+      {
+        path: '/setting',
+        name: 'setting',
+        component: Setting
       }
     ]
   }

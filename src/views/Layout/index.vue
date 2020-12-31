@@ -45,6 +45,7 @@
 <script>
 import Aside from './components/aside'
 import { getUserProfile } from '@/api/user'
+import globalBus from '@/utils/global-bus'
 export default {
   name: 'LayoutIndex',
   components: {
@@ -61,11 +62,15 @@ export default {
   },
   created () {
     this.loadUserProfile()
+    globalBus.$on('update-user', (data) => {
+      this.user.name = data.name
+      this.user.photo = data.photo
+    })
   },
   methods: {
+    // 获取登录用户的头像和用户名
     loadUserProfile () {
       getUserProfile().then(res => {
-        console.log(res)
         this.user = res.data.data
       })
     },

@@ -4,7 +4,7 @@ import JSONBig from 'json-bigint'
 // 创建axios实例,就是复制了一个axios
 // 我们通过这个实例去发请求，把需要的配置配置给这个实例来处理
 const request = axios.create({
-  baseURL: 'http://tapi.research.itcast.cn/', // 请求的基础路径
+  baseURL: 'http://ttapi.research.itcast.cn/', // 请求的基础路径
   // 定义后端返回的原始数据的处理
   // 参数data就是后端返回的原始数据(未经处理的JSON格式)
   transformResponse: [function (data) {
@@ -35,7 +35,7 @@ request.interceptors.request.use(
     if (user) {
       config.headers.Authorization = `Bearer ${user.token}`
     }
-    console.log('请求经过这里')
+    // console.log('请求经过这里')
 
     // 这里config return 出去之后，请求才会真正的发出去
     return config

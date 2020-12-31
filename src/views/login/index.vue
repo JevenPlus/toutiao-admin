@@ -37,7 +37,7 @@
 </template>
 
 <script>
-// import { login } from '@/api/user'
+import { login } from '@/api/user'
 export default {
   name: 'LoginIndex',
   data () {
@@ -97,41 +97,41 @@ export default {
     },
     login () {
       // 开启登录中 loading...
-      this.loginLoading = true
-      // login(this.user).then(res => {
-      //   console.log(res)
-      //   if (res.code === 200) {
-      //     this.$message({
-      //       message: '登录成功',
-      //       type: 'success'
-      //     })
-      //     this.loginLoading = false
-      //
-      //     // 将接口返回的用户相关数据放到本地存储
-      //     // 本地存储只能存储字符串
-      //     // 如果需要存储对象，数组类型的数据，则把他们转为JSON格式字符串
-      //     window.localStorage.setItem('user', JSON.stringify(res.data.data))
-      //     this.$router.push('/')
-      //     this.$router.push({
-      //       name: 'home'
-      //     })
-      //   }
-      // }).catch(err => {
-      //   console.log('登录失败', err)
-      //   this.$message.error('登录失败，手机或验证码错误')
-      //   this.loginLoading = false
-      // })
-      if (this.user.mobile === '15150498462' && this.user.code === '123456') {
-        this.$message({
-          message: '登录成功',
-          type: 'success'
-        })
-        this.$router.push({
-          name: 'home'
-        })
-      } else {
-        this.$message.error('用户名或验证码错误')
-      }
+      login(this.user).then(res => {
+        this.loginLoading = true
+        console.log(res)
+        if (res.status === 201) {
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+          this.loginLoading = false
+
+          // 将接口返回的用户相关数据放到本地存储
+          // 本地存储只能存储字符串
+          // 如果需要存储对象，数组类型的数据，则把他们转为JSON格式字符串
+          window.localStorage.setItem('user', JSON.stringify(res.data.data))
+          this.$router.push('/')
+          this.$router.push({
+            name: 'home'
+          })
+        }
+      }).catch(err => {
+        console.log('登录失败', err)
+        this.$message.error('登录失败，手机或验证码错误')
+        this.loginLoading = false
+      })
+      // if (this.user.mobile === '15150498462' && this.user.code === '123456') {
+      //   this.$message({
+      //     message: '登录成功',
+      //     type: 'success'
+      //   })
+      //   this.$router.push({
+      //     name: 'home'
+      //   })
+      // } else {
+      //   this.$message.error('用户名或验证码错误')
+      // }
     }
   }
 }
